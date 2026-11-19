@@ -149,15 +149,21 @@ class RssFetcher {
     }
 
     private fun String.stripHtml(): String {
-        val noTags = replace(Regex("<[^>]+>"), " ")
-        val escaped = noTags
+        // 反复移除 HTML 标签（含属性），再清掉未配对的尖括号
+        var s = Regex("<[^>]*>").replace(this, " ")
+        s = s.replace(Regex("[<>]"), " ")
+        val escaped = s
             .replace("&amp;", "&")
             .replace("&lt;", "<")
             .replace("&gt;", ">")
             .replace("&quot;", "\"")
             .replace("&#39;", "'")
             .replace("&nbsp;", " ")
-        return escaped.replace(Regex("\\s+"), " ").trim()
+        // 中文正文使用全角引号，残留的半角双引号多为标签属性碎片，予以清除
+        return escaped
+            .replace("\"", " ")
+            .replace(Regex("\\s+"), " ")
+            .trim()
     }
 
     companion object {
