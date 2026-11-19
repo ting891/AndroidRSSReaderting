@@ -15,6 +15,8 @@ import com.ting.rssreader.ui.feed.FeedListScreen
 import com.ting.rssreader.ui.feed.FeedListViewModel
 import com.ting.rssreader.ui.sources.SourcesScreen
 import com.ting.rssreader.ui.sources.SourcesViewModel
+import com.ting.rssreader.ui.starred.StarredScreen
+import com.ting.rssreader.ui.starred.StarredViewModel
 import com.ting.rssreader.ui.theme.RssReaderTheme
 
 class MainActivity : ComponentActivity() {
@@ -29,7 +31,8 @@ class MainActivity : ComponentActivity() {
                         FeedListScreen(
                             viewModel = listViewModel,
                             onOpenArticle = { id -> navController.navigate("detail/$id") },
-                            onManageSources = { navController.navigate("sources") }
+                            onManageSources = { navController.navigate("sources") },
+                            onOpenStarred = { navController.navigate("starred") }
                         )
                     }
                     composable(
@@ -47,6 +50,14 @@ class MainActivity : ComponentActivity() {
                         SourcesScreen(
                             viewModel = sourcesViewModel,
                             onBack = { navController.popBackStack() }
+                        )
+                    }
+                    composable("starred") {
+                        val starredViewModel: StarredViewModel = viewModel()
+                        StarredScreen(
+                            viewModel = starredViewModel,
+                            onBack = { navController.popBackStack() },
+                            onOpenArticle = { id -> navController.navigate("detail/$id") }
                         )
                     }
                 }

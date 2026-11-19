@@ -41,7 +41,8 @@ import java.util.Locale
 fun FeedListScreen(
     viewModel: FeedListViewModel,
     onOpenArticle: (Long) -> Unit,
-    onManageSources: () -> Unit
+    onManageSources: () -> Unit,
+    onOpenStarred: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -50,6 +51,9 @@ fun FeedListScreen(
             TopAppBar(
                 title = { Text("RSS 阅读器") },
                 actions = {
+                    IconButton(onClick = onOpenStarred) {
+                        Icon(Icons.Default.Star, contentDescription = "我的收藏")
+                    }
                     IconButton(onClick = onManageSources) {
                         Icon(Icons.Default.Settings, contentDescription = "订阅源管理")
                     }

@@ -19,6 +19,9 @@ interface ArticleDao {
     @Query("SELECT * FROM articles WHERE title LIKE '%' || :q || '%' OR summary LIKE '%' || :q || '%' OR content LIKE '%' || :q || '%' ORDER BY pubDate DESC")
     fun search(q: String): Flow<List<ArticleEntity>>
 
+    @Query("SELECT * FROM articles WHERE isStarred = 1 ORDER BY pubDate DESC")
+    fun observeStarred(): Flow<List<ArticleEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertAll(articles: List<ArticleEntity>)
 

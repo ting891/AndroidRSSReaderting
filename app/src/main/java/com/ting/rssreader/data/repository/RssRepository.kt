@@ -28,6 +28,9 @@ class RssRepository(context: Context) {
     fun searchArticles(query: String): Flow<List<ArticleEntity>> =
         db.articleDao().search(query)
 
+    fun observeStarred(): Flow<List<ArticleEntity>> =
+        db.articleDao().observeStarred()
+
     /** 刷新指定订阅源：网络拉取 -> XML 解析 -> 落库（离线缓存） */
     suspend fun refreshFeed(feedId: Long): Result<Unit> {
         val feed = db.feedDao().getById(feedId) ?: return Result.failure(IllegalStateException("订阅源不存在"))
