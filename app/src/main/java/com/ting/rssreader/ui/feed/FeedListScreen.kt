@@ -203,15 +203,19 @@ fun LoadingState(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun EmptyState(modifier: Modifier = Modifier) {
+fun EmptyState(
+    modifier: Modifier = Modifier,
+    title: String = "暂无文章",
+    subtitle: String = "点击右上角刷新，或在订阅源管理中添加 RSS 链接"
+) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("暂无文章", style = MaterialTheme.typography.titleMedium)
+        Text(title, style = MaterialTheme.typography.titleMedium)
         Spacer(Modifier.height(8.dp))
-        Text("点击右上角刷新，或在订阅源管理中添加 RSS 链接")
+        Text(subtitle)
     }
 }
 

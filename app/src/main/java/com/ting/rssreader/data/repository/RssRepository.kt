@@ -175,7 +175,8 @@ class RssRepository(context: Context) {
 
     companion object {
         private val DEFAULT_FEEDS = listOf(
-            "https://rss.sina.com.cn/news/mil.xml"
+            "https://www.people.com.cn/rss/politics.xml",
+            "https://www.solidot.org/index.rss"
         )
     }
 }

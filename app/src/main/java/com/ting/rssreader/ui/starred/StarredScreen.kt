@@ -53,7 +53,11 @@ fun StarredScreen(
         }
     ) { padding ->
         if (articles.isEmpty()) {
-            EmptyState(Modifier.fillMaxSize().padding(padding))
+            EmptyState(
+                modifier = Modifier.fillMaxSize().padding(padding),
+                title = "暂无收藏文章",
+                subtitle = "在文章详情点击右上角星标即可加入收藏"
+            )
             return@Scaffold
         }
         LazyColumn(

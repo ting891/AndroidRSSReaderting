@@ -1,5 +1,6 @@
 package com.ting.rssreader.data.remote
 
+import android.util.Log
 import android.util.Xml
 import com.ting.rssreader.data.model.ParsedArticle
 import com.ting.rssreader.data.model.ParsedFeed
@@ -29,9 +30,13 @@ class RssFetcher {
                 .header("User-Agent", USER_AGENT)
                 .build()
             client.newCall(request).execute().use { resp ->
-                if (resp.isSuccessful) resp.body?.string() else null
+                if (resp.isSuccessful) resp.body?.string() else {
+                    Log.e("RssFetcher", "HTTP ${resp.code} for $url")
+                    null
+                }
             }
         } catch (e: Exception) {
+            Log.e("RssFetcher", "fetch failed $url", e)
             null
         }
     }
